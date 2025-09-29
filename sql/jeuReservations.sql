@@ -23,6 +23,6 @@ INSERT INTO reservations (client_id, chambre_id, date_arrivee, date_depart) VALU
 
 -- Multiple réservations pour le même client (différentes chambres)
 INSERT INTO reservations (client_id, chambre_id, date_arrivee, date_depart) VALUES
-(4, 7, '2025-08-05', '2025-08-12')
+(4, 7, '2025-08-05', '2025-08-12'),
 (4, 10, '2025-10-10', '2025-10-15');
 
