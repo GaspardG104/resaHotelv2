@@ -21,18 +21,20 @@ app.use('/semantic-ui', express.static(
    ));
    
 // Route principale
-app.get('/', (req, res) => {
-    res.render('accueil', {
+app.get('/accueil', (req, res) => {
+    res.render('accueil/accueil', {
         title: 'Hôtel California - Système de Gestion'
     });
 });
+
 // Gestion des erreurs 404
-app.use((req, res) => {
-    res.status(404).render('error', {
-        title: 'Page non trouvée',
-        error: 'La page demandée n\'existe pas.'
-    });
-});
+// app.use((req, res) => {
+//     res.status(404).render('error', {
+//         title: 'Page non trouvée',
+//         error: 'La page demandée n\'existe pas.'
+//     });
+// });
+
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });

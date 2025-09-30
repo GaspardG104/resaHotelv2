@@ -1,5 +1,6 @@
 # Dépendances
 node_modules/
+db.ini
 
 # Logs
 npm-debug.log*
