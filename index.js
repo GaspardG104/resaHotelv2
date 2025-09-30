@@ -32,6 +32,18 @@ app.get('/chambres', (req, res) => {
         title: 'Hôtel California - Système de Gestion'
     });
 });
+
+
+// voir toutes les chambres
+app.get('/chambres', (req, res) => {
+    mysqlconnexion.query('SELECT * FROM chambres', (err, lignes, champs) => {
+    if (!err) {
+    console.log(lignes)
+    res.render("chambres/chambres", {chambres : lignes})}
+    })
+   })
+
+
 // Gestion des erreurs 404
 // app.use((req, res) => {
 //     res.status(404).render('error', {

@@ -6,6 +6,22 @@
     <title>Chambres</title>
 </head>
 <body>
-    aoauihgôgazfçugazfgçpazg
+        <!-- Tableau des chambres -->
+        <table class="table table-striped mt-4">
+            <thead>
+                <tr>
+                    <th>N° Chambre</th>
+                    <th>Capacité</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% chambres.forEach(chambre => { %>
+                    <tr>
+                        <td><%= chambre.numero %></td>
+                        <td><%= chambre.capacite %> personnes</td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
 </body>
 </html>
