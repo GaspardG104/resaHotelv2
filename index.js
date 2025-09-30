@@ -27,6 +27,11 @@ app.get('/accueil', (req, res) => {
     });
 });
 
+app.get('/chambres', (req, res) => {
+    res.render('chambres/index', {
+        title: 'Hôtel California - Système de Gestion'
+    });
+});
 // Gestion des erreurs 404
 // app.use((req, res) => {
 //     res.status(404).render('error', {
