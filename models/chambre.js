@@ -93,4 +93,4 @@ class Chambre {
         }
     }
 }
-module.exports = Chambre;
+export default Chambre;
