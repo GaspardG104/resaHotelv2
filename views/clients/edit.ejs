@@ -1,0 +1,14 @@
+<h1><%= title %></h1>
+
+<form action="/clients/<%= client.id %>/edit" method="POST">
+  <label>Nom:</label>
+  <input type="text" name="nom" value="<%= client.nom %>" required><br>
+
+  <label>Prénom:</label>
+  <input type="text" name="prenom" value="<%= client.prenom %>" required><br>
+
+  <label>Email:</label>
+  <input type="email" name="email" value="<%= client.email %>" required><br>
+
+  <button type="submit">Modifier</button>
+</form>

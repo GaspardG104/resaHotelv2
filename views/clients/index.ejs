@@ -1,0 +1,15 @@
+<h1><%= title %></h1>
+
+<ul>
+  <% clients.forEach(client => { %>
+    <li>
+      <%= client.nom %> <%= client.prenom %> - <%= client.email %>
+      | <a href="/clients/<%= client.id %>/edit">Modifier</a>
+      | <form action="/clients/<%= client.id %>/delete" method="POST" style="display:inline;">
+          <button type="submit">Supprimer</button>
+        </form>
+    </li>
+  <% }) %>
+</ul>
+
+<a href="/clients/create">Ajouter un client</a>

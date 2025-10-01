@@ -7,3 +7,5 @@ INSERT INTO clients (nom, email, telephone, nombre_personnes) VALUES
 ('Émilie Moreau', 'emilie.moreau@email.com', '0676543210', 1),
 ('François Petit', 'francois.petit@email.com', '0645678912', 2),
 ('Isabelle Roux', 'isabelle.roux@email.com', '0698765432', 3);
+
+

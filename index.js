@@ -38,3 +38,7 @@ app.get('/accueil', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
+
+import clientRoutes from './routes/clients.js';
+
+app.use('/clients', clientRoutes);
