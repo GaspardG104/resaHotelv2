@@ -21,7 +21,7 @@ app.use('/semantic-ui', express.static(
    ));
    
 // Route principale
-app.get('/accueil', (req, res) => {
+app.get('/', (req, res) => {
     res.render('accueil/accueil', {
         title: 'Hôtel California - Système de Gestion'
     });
