@@ -8,7 +8,7 @@ app.get('/chambres', (req, res) => {
    })
 
    
-app.get('/chambres', (req, res) => {
+app.get('/chambres/index', (req, res) => {
     res.render('chambres/index', {
         title: 'Hôtel California - Système de Gestion'
     });
