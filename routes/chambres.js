@@ -4,7 +4,7 @@ import chambreController from '..\controllers\chambreController.js';
 const router = express.Router();
 
 //pour afficher toutes les chambres
-router.get('/', chambreController.getAll);
+router.get('/', chambreController.findAll);
 //pour afficher une chambre en particulier
 router.get('/:id/', chambreController.getOne);
 

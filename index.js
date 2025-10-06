@@ -1,7 +1,11 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import chambreRoutes from './routes/chambres.js';
+import clientRoutes from './routes/clients.js';
 const app = express();
+// Routes
+
 const PORT = process.env.PORT || 3000;
 // Récupérer le chemin local (file://...) et le répertoire courant (workspace/resaHotelCalifornia2)
 const __filename = fileURLToPath(import.meta.url);
@@ -14,12 +18,14 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use('/chambres', chambreRoutes);
+app.use('/clients', clientRoutes);
 // Configuration du middleware avec exclusion
 app.use('/semantic-ui', express.static(
     path.join(__dirname, 'node_modules', 'semantic-ui-css'),
     { fallthrough: true }
-   ));
-   
+));
+
 // Route principale
 app.get('/accueil', (req, res) => {
     res.render('accueil/accueil', {
