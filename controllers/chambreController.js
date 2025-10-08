@@ -53,6 +53,7 @@ class ChambreController {
                     errors: errors
                 });
             }
+
             await Chambre.create(req.body);
             res.redirect('/chambres');
         } catch (error) {
@@ -121,4 +122,5 @@ class ChambreController {
         }
     }
 }
-module.exports = ChambreController;
+
+export default ChambreController;
