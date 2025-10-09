@@ -4,6 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import chambreRoutes from './routes/chambres.js';
 //import clientRoutes from './routes/clients.js';
+
 const app = express();
 // Routes
 
@@ -12,6 +13,8 @@ const PORT = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Configuration EJS
+// Dossier public pour les fichiers statiques (CSS, JS, images)
+app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 // Middleware (ajout de la route /public, gestion JSON et URLencoded)
