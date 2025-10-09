@@ -1,3 +1,4 @@
+// routes/chambres.js
 import express from 'express';
 import ChambreController from '../controllers/chambreController.js';
 

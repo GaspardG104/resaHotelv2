@@ -1,3 +1,4 @@
+//index.js ce machin permet de lancer l'app en nodemon
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';

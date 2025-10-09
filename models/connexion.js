@@ -1,3 +1,4 @@
+// /models/connexion.js
 // Imports needed for DB connexion
 import mysql from 'mysql2/promise';
 import fs from 'fs'; // FS : FileSystem (lire les fichiers du disque)
@@ -8,7 +9,7 @@ import { fileURLToPath } from 'url'; // URL: Convertit les liens en chemin
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Lecture des paramètres depuis un fichier configDB.ini (à exclure dans .gitignore)
-const config = ini.parse(fs.readFileSync(path.join(__dirname, 'db.ini'), 'utf-8'));
+const config = ini.parse(fs.readFileSync(path.join(__dirname, '../config/db.ini'), 'utf-8'));
 const dbConfig = {
     host: config.host,
     user: config.user,

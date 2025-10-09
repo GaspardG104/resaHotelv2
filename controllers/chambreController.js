@@ -1,3 +1,4 @@
+// controllers/chambreControllers.js
 import Chambre from '../models/chambre.js';
 
 class ChambreController {
@@ -10,9 +11,11 @@ class ChambreController {
                 chambres: chambres
             });
         } catch (error) {
+            console.error('Erreur index:', error);
             res.redirect('/');
         }
     }
+
     // Afficher le formulaire de création
     static create(req, res) {
         res.render('chambres/create', {
@@ -21,28 +24,23 @@ class ChambreController {
             errors: []
         });
     }
+
     // Traiter la création d'une chambre
     static async store(req, res) {
         try {
             // Validation manuelle des données
             const errors = [];
 
-            // Vérification des champs requis
+            // Vérification du numéro
             if (!req.body.numero || req.body.numero.trim() === '') {
                 errors.push({ msg: 'Le numéro de chambre est requis' });
+            } else if (isNaN(req.body.numero) || parseInt(req.body.numero) <= 0) {
+                errors.push({ msg: 'Le numéro doit être un entier positif' });
             }
 
-            if (!req.body.type || req.body.type.trim() === '') {
-                errors.push({ msg: 'Le type de chambre est requis' });
-            }
-
-            if (!req.body.prix || isNaN(req.body.prix) || parseFloat(req.body.prix) <= 0) {
-                errors.push({ msg: 'Le prix doit être un nombre positif' });
-            }
-
-            // Vérification de la disponibilité (si le champ existe)
-            if (req.body.disponible && !['true', 'false', '1', '0'].includes(req.body.disponible)) {
-                errors.push({ msg: 'La disponibilité doit être valide' });
+            // Vérification de la capacité
+            if (!req.body.capacite || isNaN(req.body.capacite) || parseInt(req.body.capacite) <= 0) {
+                errors.push({ msg: 'La capacité doit être un nombre positif' });
             }
 
             // Si des erreurs existent, retourner à la vue avec les erreurs
@@ -54,7 +52,11 @@ class ChambreController {
                 });
             }
 
-            await Chambre.create(req.body);
+            await Chambre.create({
+                numero: parseInt(req.body.numero),
+                capacite: parseInt(req.body.capacite)
+            });
+
             res.redirect('/chambres');
         } catch (error) {
             res.render('chambres/create', {
@@ -64,6 +66,7 @@ class ChambreController {
             });
         }
     }
+
     // Afficher le formulaire d'édition
     static async edit(req, res) {
         try {
@@ -77,21 +80,52 @@ class ChambreController {
                 errors: []
             });
         } catch (error) {
+            console.error('Erreur edit:', error);
             res.redirect('/chambres');
         }
     }
+
     // Traiter la mise à jour d'une chambre
     static async update(req, res) {
         try {
-            const uneChambre = await Chambre.findById(req.params.id);
-            if (uneChambre) {
-                await Chambre.update(req.body);
+            const chambre = await Chambre.findById(req.params.id);
+            if (!chambre) {
+                return res.redirect('/chambres');
             }
+
+            // Validation
+            const errors = [];
+            if (!req.body.numero || isNaN(req.body.numero) || parseInt(req.body.numero) <= 0) {
+                errors.push({ msg: 'Le numéro doit être un entier positif' });
+            }
+            if (!req.body.capacite || isNaN(req.body.capacite) || parseInt(req.body.capacite) <= 0) {
+                errors.push({ msg: 'La capacité doit être un nombre positif' });
+            }
+
+            if (errors.length > 0) {
+                return res.render('chambres/edit', {
+                    title: 'Modifier la Chambre',
+                    chambre: { ...chambre, ...req.body },
+                    errors: errors
+                });
+            }
+
+            await Chambre.update(req.params.id, {
+                numero: parseInt(req.body.numero),
+                capacite: parseInt(req.body.capacite)
+            });
+
             res.redirect('/chambres');
         } catch (error) {
-            res.redirect('/chambres');
+            const chambre = await Chambre.findById(req.params.id);
+            res.render('chambres/edit', {
+                title: 'Modifier la Chambre',
+                chambre: { ...chambre, ...req.body },
+                errors: [{ msg: error.message }]
+            });
         }
     }
+
     // Afficher la confirmation de suppression
     static async delete(req, res) {
         try {
@@ -104,9 +138,11 @@ class ChambreController {
                 chambre: chambre
             });
         } catch (error) {
+            console.error('Erreur delete view:', error);
             res.redirect('/chambres');
         }
     }
+
     // Traiter la suppression d'une chambre
     static async destroy(req, res) {
         try {
@@ -114,10 +150,14 @@ class ChambreController {
             if (!chambre) {
                 return res.redirect('/chambres');
             }
-            await chambre.delete(req.params.id);
+
+            await Chambre.delete(req.params.id);
             res.redirect('/chambres');
         } catch (error) {
-            req.session.messages = [{ type: 'error', text: error.message }];
+            console.error('Erreur destroy:', error);
+            if (req.session) {
+                req.session.messages = [{ type: 'error', text: error.message }];
+            }
             res.redirect('/chambres');
         }
     }
