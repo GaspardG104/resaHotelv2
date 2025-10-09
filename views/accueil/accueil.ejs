@@ -1,21 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/semantic-ui/semantic.min.css">
-    <title>
-        <%= title %>
-    </title>
-
+    <link rel="stylesheet" href="/style.css">
+    <title><%= title %></title>
 </head>
 
 <body>
-    <h1>
-        <%= title %>
-    </h1>
-    <p>Ça marche</p>
+    <div class="palm-left">🌴</div>
+    <div class="palm-right">🌴</div>
+    <!-- Section Hero -->
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1 class="hotel-name">🌴 Hôtel California 🌴</h1>
+            <p class="hotel-tagline">« Ça c'est de l'hotel de champion je vous le dis » Fabio Mazzerati</p>
+
+            <div class="action-buttons">
+                <a href="/chambres" style="text-decoration: none; color: inherit;">
+                    <div class="action-card">
+                        <i class="bed icon"></i>
+                        <h3>Chambres</h3>
+                        <p>Gérer les chambres</p>
+                    </div>
+                </a>
+
+                <a href="/clients" style="text-decoration: none; color: inherit;">
+                    <div class="action-card">
+                        <i class="users icon"></i>
+                        <h3>Clients</h3>
+                        <p>Gérer les clients</p>
+                    </div>
+                </a>
+
+                <a href="/reservations" style="text-decoration: none; color: inherit;">
+                    <div class="action-card">
+                        <i class="calendar check icon"></i>
+                        <h3>Réservations</h3>
+                        <p>Gérer les réservations</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Features -->
+    <div class="features-section">
+        <div class="ui container">
+            <h2 class="ui center aligned header" style="font-size: 2.5rem; margin-bottom: 3rem;">
+                Nos Services
+            </h2>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="wifi icon"></i>
+                    <h3>WiFi Gratuit</h3>
+                    <p>Connexion haut débit dans tout l'hôtel</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="coffee icon"></i>
+                    <h3>Restaurant</h3>
+                    <p>Cuisine gastronomique disponible 24/7</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="swimming pool icon"></i>
+                    <h3>Piscine</h3>
+                    <p>Piscine chauffée avec vue panoramique</p>
+                </div>
+
+                <div class="feature-item">
+                    <i class="car icon"></i>
+                    <h3>Parking</h3>
+                    <p>Parking sécurisé et gratuit</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="ui inverted vertical footer segment"
+        style="padding: 2rem 0; background: linear-gradient(135deg, #008B8B 0%, #20B2AA 100%);">
+        <div class="ui container">
+            <div class="ui center aligned container">
+                <p style="margin: 0; opacity: 0.9;">
+                    <i class="hotel icon"></i> Hôtel California - 2025 -
+                    <i class="phone icon"></i> +33 1 23 45 67 89 -
+                    <i class="mail icon"></i> contact@hotel-california.fr
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/semantic-ui/semantic.min.js"></script>
 </body>
 
 </html>
