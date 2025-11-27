@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest'
-import CtrlTodo from '../chambres/chambre.ejs
+import CtrlTodo from '../views/chambres/chambre.ejs'
 
 describe("tests sur les chambres du crud", () => {
 
