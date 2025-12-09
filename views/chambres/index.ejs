@@ -26,10 +26,127 @@
                     <td>
                         <%= chambres.capacite %> personnes
                     </td>
+                    <td>
+                        <a href="/chambres/:id/edit">Modifier</a> 
+                    </td>
+                    <td>
+                        <a href="/chambres/:id/delete">Supprimer</a> 
+                    </td>
                 </tr>
                 <% }); %>
         </tbody>
     </table>
-</body>
 
+    <a href="/chambres/create">Ajouter une chambre</a>
+</body>
+<style>
+    /* ------------------------------------------------------
+   STYLE GLOBAL - Ambiance "Hotel sur pilotis"
+--------------------------------------------------------*/
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", Arial, sans-serif;
+
+        /* Fond généré en dégradés pour simuler mer + ciel */
+        background:
+            /* dégradé coucher de soleil */
+            linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 120, 0, 0.35)),
+            /* mer turquoise */
+            linear-gradient(to bottom, #0099cc 0%, #005f8f 40%, #00395d 100%);
+        background-attachment: fixed;
+        background-size: cover;
+        color: white;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 40px;
+    }
+
+
+    /* ------------------------------------------------------
+   EFFET : Silhouettes de maisons sur pilotis (CSS only)
+--------------------------------------------------------*/
+    body::before {
+        content: "";
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        width: 1600px;
+        height: 500px;
+        transform: translateX(-50%);
+
+    }
+
+
+    /* ------------------------------------------------------
+   TABLEAU - Style "verre dépoli premium"
+--------------------------------------------------------*/
+    table {
+        width: 85%;
+        border-collapse: collapse;
+        margin-top: 20px;
+
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(7px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+
+        border-radius: 14px;
+        overflow: hidden;
+    }
+
+    thead {
+        background: rgba(0, 0, 0, 0.55);
+    }
+
+    th,
+    td {
+        padding: 16px 20px;
+        font-size: 1rem;
+    }
+
+    tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    tbody tr:hover {
+        background: rgba(255, 255, 255, 0.18);
+        transition: 0.2s;
+    }
+
+
+    /* ------------------------------------------------------
+   LIENS - Style "lampe tiki"
+--------------------------------------------------------*/
+    a {
+        color: #ffe19f;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    a:hover {
+        color: #fff8d9;
+        text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
+    }
+
+
+    /* ------------------------------------------------------
+   BOUTON "AJOUTER UNE CHAMBRE"
+--------------------------------------------------------*/
+    a[href="/chambres/create"] {
+        margin-top: 30px;
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.28);
+        padding: 14px 22px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        transition: 0.35s;
+    }
+
+    a[href="/chambres/create"]:hover {
+        background: rgba(255, 255, 255, 0.45);
+        transform: translateY(-3px);
+    }
+</style>
 </html>
