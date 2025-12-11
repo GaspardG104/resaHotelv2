@@ -114,6 +114,25 @@ class Chambre {
             throw new Error(`Erreur lors du comptage des chambres: ${error.message}`);
         }
     }
+    // Vérifier la disponibilité d'une chambre
+    static async isAvailable(chambreId, dateArrivee, dateDepart) {
+        try {
+            const [rows] = await db.execute(`
+                SELECT COUNT(*) as count
+                FROM reservations
+                WHERE chambre_id = ?
+                AND (
+                    (date_arrivee <= ? AND date_depart > ?) OR
+                    (date_arrivee < ? AND date_depart >= ?) OR
+                    (date_arrivee >= ? AND date_depart <= ?)
+                )
+            `, [chambreId, dateArrivee, dateArrivee, dateDepart, dateDepart, dateArrivee, dateDepart]);
+
+            return rows[0].count === 0;
+        } catch (error) {
+            throw new Error('Erreur lors de la vérification de disponibilité: ' + error.message);
+        }
+    }
 }
 
 export default Chambre;

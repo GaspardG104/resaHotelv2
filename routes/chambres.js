@@ -14,15 +14,26 @@ router.get('/create', ChambreController.create);
 router.post('/', ChambreController.store);
 
 // Afficher le formulaire d'édition d'une chambre
-router.get('/:id/edit', ChambreController.edit);
+router.get('/edit/:id', ChambreController.edit);
 
 // Traiter la mise à jour d'une chambre
 router.post('/:id', ChambreController.update);
 
 // Afficher la confirmation de suppression d'une chambre
-router.get('/:id/delete', ChambreController.delete);
+router.get('/delete/:id', ChambreController.delete);
 
 // Traiter la suppression d'une chambre
-router.post('/:id/delete', ChambreController.destroy);
+router.post('/delete/:id', ChambreController.destroy);
 
 export default router;
+
+
+
+
+
+
+
+
+
+
+

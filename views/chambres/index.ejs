@@ -13,27 +13,27 @@
     <table class="table table-striped mt-4">
         <thead>
             <tr>
-                <th>N° Chambre</th>
+                <th>N°Chambre</th>
                 <th>Capacité</th>
             </tr>
         </thead>
         <tbody>
-            <% chambres.forEach(chambres=> { %>
+            <% chambres.forEach(chambre=> { %>
                 <tr>
+                    <td><%= chambre.numero %></td>
+
+                    <td><%= chambre.capacite %> personnes</td>
+
                     <td>
-                        <%= chambres.numero %>
+                        <a href="/chambres/edit/<%= chambre.id %>">Modifier</a>
                     </td>
+
                     <td>
-                        <%= chambres.capacite %> personnes
+                        <a href="/chambres/delete/<%= chambre.id %>">Supprimer</a>
                     </td>
-                    <td>
-                        <a href="/chambres/:id/edit">Modifier</a> 
-                    </td>
-                    <td>
-                        <a href="/chambres/:id/delete">Supprimer</a> 
-                    </td>
+
                 </tr>
-                <% }); %>
+            <% }); %>
         </tbody>
     </table>
 
