@@ -61,12 +61,16 @@ body {
 .palm-left {
     left: -2rem;
     transform-origin: bottom center;
+    pointer-events: none;
+    z-index: 1;
 }
 
 .palm-right {
     right: -2rem;
     transform-origin: bottom center;
     animation-delay: 2s;
+    pointer-events: none;
+    z-index: 1;
 }
 
 @keyframes sway {
