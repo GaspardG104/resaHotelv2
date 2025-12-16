@@ -2,6 +2,7 @@
 node_modules/
 db.ini
 scriptdb.sql
+certificate/
 
 # Logs
 npm-debug.log*
