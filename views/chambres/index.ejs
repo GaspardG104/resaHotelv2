@@ -36,8 +36,9 @@
             <% }); %>
         </tbody>
     </table>
-
-    <a href="/chambres/create">Ajouter une chambre</a>
+    <div class="add-btn">
+        <a href="/chambres/create">Ajouter une chambre</a>
+    </div>
 </body>
 <style>
     /* ------------------------------------------------------
@@ -63,22 +64,6 @@
         align-items: center;
         padding-top: 40px;
     }
-
-
-    /* ------------------------------------------------------
-   EFFET : Silhouettes de maisons sur pilotis (CSS only)
---------------------------------------------------------*/
-    body::before {
-        content: "";
-        position: fixed;
-        bottom: 0;
-        left: 50%;
-        width: 1600px;
-        height: 500px;
-        transform: translateX(-50%);
-
-    }
-
 
     /* ------------------------------------------------------
    TABLEAU - Style "verre dépoli premium"
