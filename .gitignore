@@ -11,3 +11,5 @@ yarn-error.log*
 
 # Environnement
 .env
+.cert
+.key
