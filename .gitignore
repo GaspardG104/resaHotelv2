@@ -3,7 +3,7 @@ node_modules/
 db.ini
 scriptdb.sql
 certificate/
-tests/
+# à décommenter après la phase de test  tests/
 
 # Logs
 npm-debug.log*
@@ -14,4 +14,4 @@ yarn-error.log*
 .env
 .cert
 .key
-.test.js
+# à décommenter après la phase de test  .test.js
