@@ -9,7 +9,8 @@ describe("tests sur les chambres du crud", () => {
             capacite: 1
         }
 
-        expect(ChambreModels.create(data)).not.toBe()
+        //expect(ChambreModels.create(data)).not.toBe()
+        expect(ChambreModels.create(data)).rejects.toBeTruthy()
     })
 
     it('chambre doit ajouter une nouvelle chambre et répondre avec 333', () => {
@@ -21,7 +22,7 @@ describe("tests sur les chambres du crud", () => {
         }
 
         // 5. On vérifie que res.json a été appelé avec un objet contenant la nouvelle tâche
-        expect(ChambreModels.create(data)).not.toBe(0)
+        expect(ChambreModels.create(data)).not.Contain(data)
 
     })
 /*
@@ -52,15 +53,10 @@ describe("tests sur les chambres du crud", () => {
  */
 
     it('chambre doit supprimer la nouvelle chambre et répondre avec 333', () => {
-        // 1. On prépare une requête simulée avec un corps valide
-        const data = {
-            numero: '333',
-            capacite: 5
-    
-        }
+        ChambreModels.delete(data);
 
-        // 5. On vérifie que res.json a été appelé avec un objet contenant la nouvelle tâche
-        expect(ChambreModels.delete(data)).not.toBe(0)
+         
+        expect(ChambreModels.index('333')).toBeNull()
 
     })
 
