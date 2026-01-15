@@ -1,137 +1,69 @@
-<!--views/chambres/index.ejs-->
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chambres</title>
+
+    <title>Chambres Hôtel California</title>
+
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="/semantic-ui/semantic.min.css">
+
+    <!-- CSS CUSTOM (IMPORTANT) -->
+    <link rel="stylesheet" href="/stylenuit.css">
 </head>
 
 <body>
-    <!-- Tableau des chambres -->
-    <table class="table table-striped mt-4">
-        <thead>
-            <tr>
-                <th>N°Chambre</th>
-                <th>Capacité</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% chambres.forEach(chambre=> { %>
-                <tr>
-                    <td><%= chambre.numero %></td>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+    <div class="palm-left">🌴</div>
+    <div class="palm-right">🌴</div>
+        
+        <div class="hero-content">
+            <h1 class="hotel-name">Hôtel California</h1>
+            <p class="hotel-tagline">Gestion des chambres</p>
 
-                    <td><%= chambre.capacite %> personnes</td>
+            <table class="ui celled inverted table" style="max-width: 700px; margin: 0 auto;">
+                <thead>
+                    <tr>
+                        <th>N° Chambre</th>
+                        <th>Capacité</th>
+                        <th colspan="2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% chambres.forEach(chambre => { %>
+                        <tr>
+                            <td><%= chambre.numero %></td>
+                            <td><%= chambre.capacite %> personnes</td>
+                            <td>
+                                <a class="ui primary mini button"
+                                   href="/chambres/edit/<%= chambre.id %>">
+                                    Modifier
+                                </a>
+                            </td>
+                            <td>
+                                <a class="ui red mini button"
+                                   href="/chambres/delete/<%= chambre.id %>">
+                                    Supprimer
+                                </a>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
 
-                    <td>
-                        <a href="/chambres/edit/<%= chambre.id %>">Modifier</a>
-                    </td>
+            <div class="action-buttons" style="margin-top: 2rem;">
+                <a href="/chambres/create" class="action-card">
+                    <i class="plus circle icon"></i>
+                    <h3>Ajouter une chambre</h3>
+                    <p>Créer une nouvelle chambre</p>
+                </a>
+            </div>
 
-                    <td>
-                        <a href="/chambres/delete/<%= chambre.id %>">Supprimer</a>
-                    </td>
-
-                </tr>
-            <% }); %>
-        </tbody>
-    </table>
-    <div class="add-btn">
-        <a href="/chambres/create">Ajouter une chambre</a>
+        </div>
     </div>
+
 </body>
-<style>
-    /* ------------------------------------------------------
-   STYLE GLOBAL - Ambiance "Hotel sur pilotis"
---------------------------------------------------------*/
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins", Arial, sans-serif;
-
-        /* Fond généré en dégradés pour simuler mer + ciel */
-        background:
-            /* dégradé coucher de soleil */
-            linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(255, 120, 0, 0.35)),
-            /* mer turquoise */
-            linear-gradient(to bottom, #0099cc 0%, #005f8f 40%, #00395d 100%);
-        background-attachment: fixed;
-        background-size: cover;
-        color: white;
-
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 40px;
-    }
-
-    /* ------------------------------------------------------
-   TABLEAU - Style "verre dépoli premium"
---------------------------------------------------------*/
-    table {
-        width: 85%;
-        border-collapse: collapse;
-        margin-top: 20px;
-
-        background: rgba(255, 255, 255, 0.12);
-        backdrop-filter: blur(7px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
-
-        border-radius: 14px;
-        overflow: hidden;
-    }
-
-    thead {
-        background: rgba(0, 0, 0, 0.55);
-    }
-
-    th,
-    td {
-        padding: 16px 20px;
-        font-size: 1rem;
-    }
-
-    tbody tr:nth-child(even) {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    tbody tr:hover {
-        background: rgba(255, 255, 255, 0.18);
-        transition: 0.2s;
-    }
-
-
-    /* ------------------------------------------------------
-   LIENS - Style "lampe tiki"
---------------------------------------------------------*/
-    a {
-        color: #ffe19f;
-        text-decoration: none;
-        font-weight: 600;
-    }
-
-    a:hover {
-        color: #fff8d9;
-        text-shadow: 0 0 6px rgba(255, 255, 255, 0.7);
-    }
-
-
-    /* ------------------------------------------------------
-   BOUTON "AJOUTER UNE CHAMBRE"
---------------------------------------------------------*/
-    a[href="/chambres/create"] {
-        margin-top: 30px;
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.28);
-        padding: 14px 22px;
-        border-radius: 10px;
-        font-size: 1.1rem;
-        transition: 0.35s;
-    }
-
-    a[href="/chambres/create"]:hover {
-        background: rgba(255, 255, 255, 0.45);
-        transform: translateY(-3px);
-    }
-</style>
 </html>
