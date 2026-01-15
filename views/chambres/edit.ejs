@@ -49,27 +49,31 @@
             <% } %>
 
                 <div class="ui segment">
-                    <form class="ui form" action="/chambres" method="POST">
+                    <form class="ui form" action="/chambres/<%= chambre._id %>?_method=PUT" method="POST">
+
+                        <!-- ID caché (optionnel mais utile) -->
+                        <input type="hidden" name="id" value="<%= chambre._id %>">
+
                         <div class="two fields">
                             <div class="required field">
                                 <label>Numéro de la chambre</label>
-                                <input type="text" name="numero" placeholder="Ex: 101, 202, A12..."
-                                    value="<%= chambre.numero || '' %>" required>
-                                <div class="ui pointing label"
-                                    style="margin-top: 5px; border: none; background: transparent; color: #999; font-size: 0.9em;">
-                                    Le numéro doit être unique
-                                </div>
+                                <input
+                                    type="text"
+                                    name="numero"
+                                    value="<%= chambre.numero %>"
+                                    required
+                                >
                             </div>
+
                             <div class="required field">
                                 <label>Capacité</label>
                                 <select class="ui dropdown" name="capacite" required>
-                                    <option value="">Sélectionnez...</option>
-                                    <option value="1" <%=chambre.capacite==1 ? 'selected' : '' %>>1 personne</option>
-                                    <option value="2" <%=chambre.capacite==2 ? 'selected' : '' %>>2 personnes</option>
-                                    <option value="3" <%=chambre.capacite==3 ? 'selected' : '' %>>3 personnes</option>
-                                    <option value="4" <%=chambre.capacite==4 ? 'selected' : '' %>>4 personnes</option>
-                                    <option value="5" <%=chambre.capacite==5 ? 'selected' : '' %>>5 personnes</option>
-                                    <option value="6" <%=chambre.capacite==6 ? 'selected' : '' %>>6 personnes</option>
+                                    <option value="1" <%= chambre.capacite == 1 ? 'selected' : '' %>>1 personne</option>
+                                    <option value="2" <%= chambre.capacite == 2 ? 'selected' : '' %>>2 personnes</option>
+                                    <option value="3" <%= chambre.capacite == 3 ? 'selected' : '' %>>3 personnes</option>
+                                    <option value="4" <%= chambre.capacite == 4 ? 'selected' : '' %>>4 personnes</option>
+                                    <option value="5" <%= chambre.capacite == 5 ? 'selected' : '' %>>5 personnes</option>
+                                    <option value="6" <%= chambre.capacite == 6 ? 'selected' : '' %>>6 personnes</option>
                                 </select>
                             </div>
                         </div>
@@ -81,10 +85,11 @@
                                 <i class="cancel icon"></i> Annuler
                             </a>
                             <button class="ui primary button" type="submit">
-                                <i class="save icon"></i> Créer la chambre
+                                <i class="save icon"></i> Modifier la chambre
                             </button>
                         </div>
                     </form>
+
                 </div>
     </div>
 
