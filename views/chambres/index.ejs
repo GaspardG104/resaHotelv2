@@ -21,44 +21,45 @@
     <div class="palm-right">🌴</div>
         
         <div class="hero-content">
-            <h1 class="hotel-name">Hôtel California</h1>
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name" >Hôtel California</h1></div>
+                </a>
             <p class="hotel-tagline">Gestion des chambres</p>
-
-            <table class="ui celled inverted table" style="max-width: 700px; margin: 0 auto;">
-                <thead>
-                    <tr>
-                        <th>N° Chambre</th>
-                        <th>Capacité</th>
-                        <th colspan="2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% chambres.forEach(chambre => { %>
+            <div class="table-wrapper">    
+                <table class="chambres-table">
+                    <thead>
                         <tr>
-                            <td><%= chambre.numero %></td>
-                            <td><%= chambre.capacite %> personnes</td>
-                            <td>
-                                <a class="ui primary mini button"
-                                   href="/chambres/edit/<%= chambre.id %>">
-                                    Modifier
-                                </a>
-                            </td>
-                            <td>
-                                <a class="ui red mini button"
-                                   href="/chambres/delete/<%= chambre.id %>">
-                                    Supprimer
-                                </a>
-                            </td>
+                            <th>N° Chambre</th>
+                            <th>Capacité</th>
+                            <th colspan="2">Actions</th>
                         </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-
+                    </thead>
+                    <tbody>
+                        <% chambres.forEach(chambre => { %>
+                            <tr>
+                                <td><%= chambre.numero %></td>
+                                <td><%= chambre.capacite %> personnes</td>
+                                <td>
+                                    <a style=""
+                                    href="/chambres/edit/<%= chambre.id %>" class="btn-action btn-edit">
+                                        Modifier
+                                    </a>
+                                </td>
+                                <td>
+                                    <a style="" href="/chambres/delete/<%= chambre.id %>" class="btn-action btn-delete">
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div> 
             <div class="action-buttons" style="margin-top: 2rem;">
                 <a href="/chambres/create" class="action-card">
                     <i class="plus circle icon"></i>
                     <h3>Ajouter une chambre</h3>
-                    <p>Créer une nouvelle chambre</p>
                 </a>
             </div>
 

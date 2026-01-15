@@ -255,3 +255,74 @@ body {
         align-items: stretch;
     }
 }
+
+.hotel-title-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.hotel-title-link:hover .hotel-name {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.table-wrapper {
+    margin: 2.5rem auto;
+    max-width: 800px;
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    padding: 1.5rem;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.chambres-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f0f0f0;
+}
+
+.chambres-table th {
+    padding: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.chambres-table td {
+    padding: 0.9rem;
+}
+
+.chambres-table tbody tr {
+    transition: background 0.25s ease;
+}
+
+.chambres-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-action {
+    display: inline-block;
+    padding: 0.45rem 0.9rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    color: white;
+}
+
+.btn-edit {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+.btn-edit:hover {
+    box-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+}
+
+.btn-delete {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+}
+
+.btn-delete:hover {
+    box-shadow: 0 0 15px rgba(239, 68, 68, 0.8);
+}
