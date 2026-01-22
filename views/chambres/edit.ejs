@@ -8,34 +8,37 @@
     <title>
         <%= title %>
     </title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Chambres Hôtel California</title>
 
-    <!-- Navigation -->
-    <div class="ui inverted menu"
-        style="margin-top: 10px; border-radius: 0; background: rgba(26, 26, 46, 0.95); width: 100%; z-index: 1000; backdrop-filter: blur(10px);">
-        <div class="ui container">
-            <a href="/" class="header item" style="font-size: 1.3rem; font-weight: 300;">
-                ✨ Hôtel California
-            </a>
-            <a href="/" class="item">Accueil</a>
-            <a href="/chambres" class="item active">Gérer les chambres</a>
-            <a class="item">Services</a>
-            <a class="item">Contact</a>
-        </div>
-    </div>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="/semantic-ui/semantic.min.css">
+
+    <!-- CSS CUSTOM (IMPORTANT) -->
+    <link rel="stylesheet" href="/stylenuit.css">
 </head>
 
 <body>
-        <h1 class="ui header" style="margin-top: 100px;">
-            <i class="plus circle icon"></i>
-            <div class="content">
-                Editer une Chambre
-                <div class="sub header">Editez une nouvelle chambre dans le système</div>
+    <div class="stars"></div>
+        <div class="moon"></div>
+        <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name" >Hôtel California</h1>
+                </a>
             </div>
-        </h1>
+            <p class="hotel-tagline">Gestion des chambres</p>
+            <h1 class="ui header" style="margin-top: 100px;">
+                <i class="plus circle icon"></i>
+                <div class="content">
+                    Editer une Chambre
+                    <div class="sub header">Editez une nouvelle chambre dans le système</div>
+                </div>
+            </h1>
 
-        <% if (errors && errors.length> 0) { %>
+            <% if (errors && errors.length> 0) { %>
             <div class="ui negative message">
                 <div class="header">Erreur lors de la création</div>
                 <ul class="list">
@@ -48,49 +51,44 @@
             </div>
             <% } %>
 
-                <div class="ui segment">
-                    <form class="ui form" action="/chambres/<%= chambre._id %>?_method=PUT" method="POST">
-
-                        <!-- ID caché (optionnel mais utile) -->
-                        <input type="hidden" name="id" value="<%= chambre._id %>">
-
-                        <div class="two fields">
-                            <div class="required field">
-                                <label>Numéro de la chambre</label>
-                                <input
-                                    type="text"
-                                    name="numero"
-                                    value="<%= chambre.numero %>"
-                                    required
-                                >
-                            </div>
-
-                            <div class="required field">
-                                <label>Capacité</label>
-                                <select class="ui dropdown" name="capacite" required>
-                                    <option value="1" <%= chambre.capacite == 1 ? 'selected' : '' %>>1 personne</option>
-                                    <option value="2" <%= chambre.capacite == 2 ? 'selected' : '' %>>2 personnes</option>
-                                    <option value="3" <%= chambre.capacite == 3 ? 'selected' : '' %>>3 personnes</option>
-                                    <option value="4" <%= chambre.capacite == 4 ? 'selected' : '' %>>4 personnes</option>
-                                    <option value="5" <%= chambre.capacite == 5 ? 'selected' : '' %>>5 personnes</option>
-                                    <option value="6" <%= chambre.capacite == 6 ? 'selected' : '' %>>6 personnes</option>
-                                </select>
-                            </div>
+            <div class="ui segment">
+                <form class="ui form" action="/chambres/<%= chambre._id %>?_method=PUT" method="POST">
+                    <!-- ID caché (optionnel mais utile) -->
+                    <input type="hidden" name="id" value="<%= chambre._id %>">
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Numéro de la chambre</label>
+                            <input
+                                type="text"
+                                name="numero"
+                                value="<%= chambre.numero %>"
+                                required 
+                                >       <!--Fin de l'input, pas trop intuitif juste un ">" -->
                         </div>
-
-                        <div class="ui divider"></div>
-
-                        <div class="field" style="text-align: right;">
-                            <a href="/chambres" class="ui button">
-                                <i class="cancel icon"></i> Annuler
-                            </a>
-                            <button class="ui primary button" type="submit">
-                                <i class="save icon"></i> Modifier la chambre
-                            </button>
+                        <div class="required field">
+                            <label>Capacité</label>
+                            <select class="ui dropdown" name="capacite" required>
+                                <option value="1" <%= chambre.capacite == 1 ? 'selected' : '' %>>1 personne</option>
+                                <option value="2" <%= chambre.capacite == 2 ? 'selected' : '' %>>2 personnes</option>
+                                <option value="3" <%= chambre.capacite == 3 ? 'selected' : '' %>>3 personnes</option>
+                                <option value="4" <%= chambre.capacite == 4 ? 'selected' : '' %>>4 personnes</option>
+                                <option value="5" <%= chambre.capacite == 5 ? 'selected' : '' %>>5 personnes</option>
+                                <option value="6" <%= chambre.capacite == 6 ? 'selected' : '' %>>6 personnes</option>
+                            </select>
                         </div>
-                    </form>
-
-                </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="field" style="text-align: right;">
+                        <a href="/chambres" class="ui button">
+                            <i class="cancel icon"></i> Annuler
+                        </a>
+                        <button class="ui primary button" type="submit">
+                            <i class="save icon"></i> Modifier la chambre
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->

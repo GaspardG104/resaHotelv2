@@ -12,34 +12,34 @@
     <link rel="stylesheet" href="/stylenuit.css">
 </head>
 
- <body>
+<body>
     <div class="stars"></div>
         <div class="moon"></div>
         <div class="hero-section">
         <div class="palm-left">🌴</div>
         <div class="palm-right">🌴</div>
             
-            <div class="hero-content">
-                <div>
-                    <a href="/" class="hotel-title-link">
-                        <h1 class="hotel-name" >Hôtel California</h1></div>
-                    </a>
-                <p class="hotel-tagline">Gestion des chambres</p>
-       
-        <div style="padding-top:100px;" >
-            <div class="ui negative message">
-                <div class="header">
-                    ⚠️ Supprimer la chambre <strong>#<%= chambre.numero %></strong> ?
-                </div>
-                <p>Cette action est irréversible. Toutes les données associées à cette chambre seront perdues.</p>
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name" >Hôtel California</h1>
+                </a>
             </div>
-
-            <form action="/chambres/delete/<%= chambre.id %>" method="POST" style="margin-top: 20px;">
-                <button type="submit" class="ui red button">🗑️ Confirmer la suppression</button>
-                <a href="/chambres" class="ui button">Annuler</a>
-            </form>
+            <p class="hotel-tagline">Gestion des chambres</p>
+       
+            <div style="padding-top:100px;" >
+                <div class="ui negative message">
+                    <div class="header">
+                        ⚠️ Supprimer la chambre <strong>#<%= chambre.numero %></strong> ?
+                    </div>
+                    <p>Cette action est irréversible. Toutes les données associées à cette chambre seront perdues.</p>
+                </div>
+                <form action="/chambres/delete/<%= chambre.id %>" method="POST" style="margin-top: 20px;">
+                    <button type="submit" class="ui red button">🗑️ Confirmer la suppression</button>
+                    <a href="/chambres" class="ui button">Annuler</a>
+                </form>
+            </div>
         </div>
-
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
 </body>
