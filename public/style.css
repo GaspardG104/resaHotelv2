@@ -53,6 +53,11 @@ body {
     
 } */
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 .palm-left, .palm-right {
     position: absolute;
     bottom: 0;

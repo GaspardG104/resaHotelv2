@@ -19,8 +19,8 @@
 
 <body>
     <div class="stars"></div>
-        <div class="moon"></div>
-        <div class="hero-section">
+    <div class="moon"></div>
+    <div class="hero-section">
         <div class="palm-left">🌴</div>
         <div class="palm-right">🌴</div>
         <div class="hero-content">
@@ -29,30 +29,26 @@
                     <h1 class="hotel-name" >Hôtel California</h1>
                 </a>
             </div>
-            <p class="hotel-tagline">Gestion des chambres</p>
-            <h1 class="ui header" style="margin-top: 100px;">
-                <i class="plus circle icon"></i>
-                <div class="content">
-                    Editer une Chambre
-                    <div class="sub header">Editez une nouvelle chambre dans le système</div>
-                </div>
-            </h1>
-
-            <% if (errors && errors.length> 0) { %>
-            <div class="ui negative message">
-                <div class="header">Erreur lors de la création</div>
-                <ul class="list">
-                    <% errors.forEach(error=> { %>
-                        <li>
-                            <%= error.msg %>
-                        </li>
-                        <% }) %>
-                </ul>
+            <div>
+                <a href="/chambres" class="hotel-title-link">
+                    <p class="hotel-tagline">Liste des chambres</p>
+                </a>
             </div>
+            <% if (errors && errors.length> 0) { %>
+                <div class="ui negative message">
+                    <div class="header">Erreur lors de la création</div>
+                    <ul class="list">
+                        <% errors.forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
             <% } %>
 
-            <div class="ui segment">
-                <form class="ui form" action="/chambres/<%= chambre._id %>?_method=PUT" method="POST">
+            <div class="table-wrapper">
+                <form class="chambres-table" action="/chambres/<%= chambre._id %>?_method=PUT" method="POST">
                     <!-- ID caché (optionnel mais utile) -->
                     <input type="hidden" name="id" value="<%= chambre._id %>">
                     <div class="two fields">
