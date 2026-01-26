@@ -69,8 +69,6 @@ class ChambreController {
 
     // Afficher le formulaire d'édition
     static async edit(req, res) {
-                    console.log('PATCH ID:', req.params.id);
-            console.log('BODY:', req.body);
         try {
             const chambre = await Chambre.findById(req.params.id);
             if (!chambre) {

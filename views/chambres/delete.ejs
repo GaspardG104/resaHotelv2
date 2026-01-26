@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Supprimer la chambre</title>
     <!-- Semantic UI -->
-    <link rel="stylesheet" href="/semantic-ui/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
 
     <!-- CSS CUSTOM (IMPORTANT) -->
     <link rel="stylesheet" href="/stylenuit.css">
@@ -35,8 +35,13 @@
                     <p>Cette action est irréversible. Toutes les données associées à cette chambre seront perdues.</p>
                 </div>
                 <form action="/chambres/delete/<%= chambre.id %>" method="POST" style="margin-top: 20px;">
+                    <button class="ui button">
+                        <a href="/chambres">
+                            <i class="arrow alternate circle left icon"></i>
+                            Annuler
+                        </a>
+                    </button>
                     <button type="submit" class="ui red button">🗑️ Confirmer la suppression</button>
-                    <a href="/chambres" class="ui button">Annuler</a>
                 </form>
             </div>
         </div>
