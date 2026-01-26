@@ -68,7 +68,7 @@ describe("tests sur les chambres du crud", () => {
 
         it('chambre doit supprimer la nouvelle chambre et répondre avec 333', () => {
             ChambreModels.delete(data);
-            
+            // faut creer la chambre avant
             expect(ChambreModels.index('333')).toBeNull()
 
         })

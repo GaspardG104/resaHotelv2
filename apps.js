@@ -4,8 +4,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 import chambreRoutes from './routes/chambres.js';
-import clientsRoutes from './routes/clients.js';
-
+import clientRoutes from './routes/clients.js';
 
 const app = express();
 // Routes
@@ -40,7 +39,6 @@ app.get('/', (req, res) => {
     });
 });
 
-
 // Gestion des erreurs 404
 // app.use((req, res) => {
 //     res.status(404).render('error', {
@@ -52,9 +50,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
-
-import clientRoutes from './routes/clients.js';
-
 
 app.use('/chambres', chambreRoutes);
 app.use('/clients', clientRoutes);
