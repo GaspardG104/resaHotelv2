@@ -53,12 +53,15 @@
                     <div class="two fields">
                         <div class="required field">
                             <label>Numéro de la chambre</label>
-                            <input
-                                type="text"
-                                name="numero"
-                                value="<%= chambre.numero %>"
-                                required 
-                                >       <!--Fin de l'input, pas trop intuitif juste un ">" -->
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="numero" 
+                                    placeholder="Ex: 101" 
+                                    value="<%= chambre.numero %>" 
+                                    required>
+                            </div>       <!--Fin de l'input, pas trop intuitif juste un ">" -->
                         </div>
                         <div class="required field">
                             <label>Capacité</label>

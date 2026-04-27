@@ -11,7 +11,7 @@
 
 
     <!-- Semantic UI -->
-    <link rel="stylesheet" href="/semantic-ui/semantic.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
 
     <!-- CSS CUSTOM (IMPORTANT) -->
     <link rel="stylesheet" href="/stylenuit.css">
@@ -31,7 +31,7 @@
             </div>
             <div>
                 <a href="/chambres" class="hotel-title-link">
-                    <p class="hotel-tagline">Liste des chambres</p>
+                    <p class="hotel-tagline">Création de la chambre</p>
                 </a>
             </div>
             <% if (errors && errors.length> 0) { %>
@@ -49,17 +49,19 @@
 
             <div class="table-wrapper">
                 <form class="chambres-table" action="/chambres/<%= chambre._id %>?_method=POST" method="POST">
-                    <!-- ID caché (optionnel mais utile) -->
                     <input type="hidden" name="id" value="<%= chambre._id %>">
                     <div class="two fields">
                         <div class="required field">
                             <label>Numéro de la chambre</label>
-                            <input
-                                type="text"
-                                name="numero"
-                                value="<%= chambre.numero %>"
-                                required 
-                                >       <!--Fin de l'input, pas trop intuitif juste un ">" -->
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="numero" 
+                                    placeholder="Ex: 101" 
+                                    value="<%= chambre.numero %>" 
+                                    required>
+                            </div>      <!--Fin de l'input, pas trop intuitif juste un ">" -->
                         </div>
                         <div class="required field">
                             <label>Capacité</label>

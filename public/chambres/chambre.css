@@ -1,0 +1,14 @@
+.action-card {
+    display: flex !important;       /* Force l'alignement en ligne */
+    flex-direction: row !important; /* Met les éléments côte à côte */
+    align-items: center;            /* Aligne l'icône et le texte verticalement */
+    justify-content: center;        /* Centre le tout horizontalement dans la carte */
+    gap: 15px;                      /* Crée un espace précis entre le + et le texte */
+    padding: 20px;
+    text-decoration: none;
+}
+
+/* On enlève la marge automatique du titre qui pousse tout vers le bas */
+.action-card h3 {
+    margin: 0 !important; 
+}
