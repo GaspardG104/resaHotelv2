@@ -1,4 +1,4 @@
-<!-- views/chambres/edit.ejs -->
+<!-- views/clients/edit.ejs -->
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -48,14 +48,11 @@
             <% } %>
 
             <div class="table-wrapper">
-                <form class="clients-table" action="/clients/<%= client.id %>" method="POST">
-                    <!-- ID caché (optionnel mais utile) -->
-                    <input type="hidden" name="id" value="<%= chambre.id %>">
+                <form class="clients-table" action="/clients/<%= client.id %>/edit" method="POST">
                     <div class="two fields">
                         <div class="required field">
                             <label>Nom</label>
                             <div class="ui left icon input">
-                                <i class="hashtag icon"></i>
                                 <input 
                                     type="text" 
                                     name="nom" 
@@ -67,7 +64,6 @@
                         <div class="required field">
                             <label>Prénom</label>
                             <div class="ui left icon input">
-                                <i class="hashtag icon"></i>
                                 <input 
                                     type="text" 
                                     name="prenom" 
@@ -79,13 +75,23 @@
                         <div class="required field">
                             <label>Adresse Email</label>
                             <div class="ui left icon input">
-                                <i class="hashtag icon"></i>
                                 <input 
                                     type="text" 
-                                    name="mail" 
+                                    name="email" 
                                     placeholder="Ex: david.roumanet@free.fr" 
                                     value="<%= client.email %>" 
                                     required>
+                            </div>
+                        </div>
+                         <div class="required field">
+                            <label>Telephone</label>
+                            <div class="ui left icon input">
+                                <input 
+                                    type="text" 
+                                    name="telephone" 
+                                    placeholder="Ex: 07 24 25 26 70" 
+                                    value="<%= client.telephone %>" 
+                                    >
                             </div>
                         </div>
                     </div>

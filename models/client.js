@@ -33,7 +33,7 @@ class Client {
     static async create(clientData) {
         try {
             const [result] = await db.execute(
-                'INSERT INTO clients (nom, prenom, email) VALUES (?, ?, ?)',
+                'INSERT INTO clients (nom, prenom, email, telephone) VALUES (?, ?, ?, ?)',
                 [clientData.nom, clientData.prenom, clientData.email, clientData.telephone]
             );
             return result.insertId;
@@ -46,13 +46,13 @@ class Client {
     async update(clientData) {
         try {
             await db.execute(
-                'UPDATE clients SET nom = ?, prenom = ?, email = ? WHERE id = ?',
+                'UPDATE clients SET nom = ?, prenom = ?, email = ?, telephone = ? WHERE id = ?',
                 [clientData.nom, clientData.prenom, clientData.email, clientData.telephone,this.id]
             );
             this.nom = clientData.nom;
             this.prenom = clientData.prenom;
             this.email = clientData.email;
-            this.email = clientData.telephone;
+            this.telephone = clientData.telephone;
         } catch (error) {
             throw new Error('Erreur lors de la mise à jour du client: ' + error.message);
         }

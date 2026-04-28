@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Chambres Hôtel California</title>
+    <title>Clients Hôtel California</title>
 
     <!-- Semantic UI -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
@@ -46,12 +46,12 @@
                                 <td><%= client.email %></td>
                                 <td><%= client.telephone %></td>
                                 <td>
-                                    <a href="/clients/edit/<%= client.id %>" class="btn-action btn-edit">
+                                    <a href="/clients/edit/<%= client.id %>/edit" class="btn-action btn-edit">
                                         Modifier
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/clients/delete/<%= client.id %>" class="btn-action btn-delete">
+                                    <a href="/clients/delete/<%= client.id %>/delete" class="btn-action btn-delete">
                                         Supprimer
                                     </a>
                                 </td>
