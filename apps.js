@@ -54,4 +54,8 @@ app.listen(PORT, () => {
 app.use('/chambres', chambreRoutes);
 app.use('/clients', clientRoutes);
 
+// En haut avec les autres imports :
+import reservationRoutes from './routes/reservations.js';
 
+// En bas avec les autres routes :
+app.use('/reservations', reservationRoutes);
