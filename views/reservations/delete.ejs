@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supprimer la réservation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="/stylenuit.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name">Hôtel California</h1>
+                </a>
+            </div>
+            <p class="hotel-tagline">Gestion des réservations</p>
+
+            <div style="padding-top:100px;">
+                <div class="ui negative message">
+                    <div class="header">
+                        ⚠️ Supprimer la réservation de
+                        <strong><%= reservation.client_nom %></strong>
+                        sur la chambre <strong>n°<%= reservation.chambre_numero %></strong> ?
+                    </div>
+                    <p>
+                        Période :
+                        <%= toInputDate(reservation.date_arrivee) %>
+                        →
+                        <%= toInputDate(reservation.date_depart) %>
+                    </p>
+                    <p>Cette action est irréversible.</p>
+                </div>
+                <form action="/reservations/delete/<%= reservation.id %>" method="POST" style="margin-top: 20px;">
+                    <button type="button" class="ui button">
+                        <a href="/reservations">
+                            <i class="arrow alternate circle left icon"></i>
+                            Annuler
+                        </a>
+                    </button>
+                    <button type="submit" class="ui red button">🗑️ Confirmer la suppression</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="/stylenuit.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name">Hôtel California</h1>
+                </a>
+            </div>
+            <div>
+                <a href="/reservations" class="hotel-title-link">
+                    <p class="hotel-tagline">Liste des réservations</p>
+                </a>
+            </div>
+
+            <% if (errors && errors.length > 0) { %>
+                <div class="ui negative message">
+                    <div class="header">Erreur lors de la modification</div>
+                    <ul class="list">
+                        <% errors.forEach(error => { %>
+                            <li><%= error.msg %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <div class="table-wrapper">
+                <form class="chambres-table" action="/reservations/<%= reservation.id %>" method="POST">
+                    <input type="hidden" name="id" value="<%= reservation.id %>">
+
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Client</label>
+                            <select class="ui dropdown" name="client_id" required>
+                                <option value="">-- Choisir un client --</option>
+                                <% clients.forEach(client => { %>
+                                    <option value="<%= client.id %>"
+                                        <%= reservation.client_id == client.id ? 'selected' : '' %>>
+                                        <%= client.nom %>
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        <div class="required field">
+                            <label>Chambre</label>
+                            <select class="ui dropdown" name="chambre_id" required>
+                                <option value="">-- Choisir une chambre --</option>
+                                <% chambres.forEach(chambre => { %>
+                                    <option value="<%= chambre.id %>"
+                                        <%= reservation.chambre_id == chambre.id ? 'selected' : '' %>>
+                                        N° <%= chambre.numero %> (<%= chambre.capacite %> pers.)
+                                    </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="two fields">
+                        <div class="required field">
+                            <label>Date d'arrivée</label>
+                            <div class="ui left icon input">
+                                <i class="calendar icon"></i>
+                                <input type="date" name="date_arrivee"
+                                    value="<%= toInputDate(reservation.date_arrivee) %>" required>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label>Date de départ</label>
+                            <div class="ui left icon input">
+                                <i class="calendar icon"></i>
+                                <input type="date" name="date_depart"
+                                    value="<%= toInputDate(reservation.date_depart) %>" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui divider"></div>
+                    <div class="field" style="text-align: right;">
+                        <a href="/reservations">
+                            <i class="arrow alternate circle left icon"></i>
+                            Annuler
+                        </a>
+                        <button class="ui primary button" type="submit">
+                            <i class="save icon"></i> Modifier la réservation
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="ui container">
+            <div style="text-align: center; padding: 20px 0;">
+                <p>© 2025 Hôtel California. Tous droits réservés.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réservations Hôtel California</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="/stylenuit.css">
+    <link rel="stylesheet" href="/chambres/chambre.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name">Hôtel California</h1>
+                </a>
+            </div>
+            <p class="hotel-tagline">Gestion des réservations</p>
+
+            <div class="table-wrapper">
+                <table class="chambres-table">
+                    <thead>
+                        <tr>
+                            <th>Client</th>
+                            <th>Chambre</th>
+                            <th>Arrivée</th>
+                            <th>Départ</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (reservations.length === 0) { %>
+                            <tr>
+                                <td colspan="6" style="text-align: center;">
+                                    Aucune réservation pour le moment.
+                                </td>
+                            </tr>
+                        <% } %>
+                        <% reservations.forEach(reservation => { %>
+                            <tr>
+                                <td><%= reservation.client_nom %></td>
+                                <td>N° <%= reservation.chambre_numero %></td>
+                                <td><%= toInputDate(reservation.date_arrivee) %></td>
+                                <td><%= toInputDate(reservation.date_depart) %></td>
+                                <td>
+                                    <a href="/reservations/edit/<%= reservation.id %>" class="btn-action btn-edit">
+                                        Modifier
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/reservations/delete/<%= reservation.id %>" class="btn-action btn-delete">
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="action-buttons" style="margin-top: 2rem;">
+                <a href="/reservations/create" class="action-card">
+                    <i class="blue plus circle big icon"></i>
+                    <h3>Ajouter une réservation</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
