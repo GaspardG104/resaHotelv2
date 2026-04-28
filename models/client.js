@@ -6,6 +6,7 @@ class Client {
         this.nom = data.nom;
         this.prenom = data.prenom;
         this.email = data.email;
+        this.telephone = data.telephone;
     }
 
     // Récupérer tous les clients
@@ -33,7 +34,7 @@ class Client {
         try {
             const [result] = await db.execute(
                 'INSERT INTO clients (nom, prenom, email) VALUES (?, ?, ?)',
-                [clientData.nom, clientData.prenom, clientData.email]
+                [clientData.nom, clientData.prenom, clientData.email, clientData.telephone]
             );
             return result.insertId;
         } catch (error) {
@@ -46,11 +47,12 @@ class Client {
         try {
             await db.execute(
                 'UPDATE clients SET nom = ?, prenom = ?, email = ? WHERE id = ?',
-                [clientData.nom, clientData.prenom, clientData.email, this.id]
+                [clientData.nom, clientData.prenom, clientData.email, clientData.telephone,this.id]
             );
             this.nom = clientData.nom;
             this.prenom = clientData.prenom;
             this.email = clientData.email;
+            this.email = clientData.telephone;
         } catch (error) {
             throw new Error('Erreur lors de la mise à jour du client: ' + error.message);
         }

@@ -1,14 +1,134 @@
-<h1><%= title %></h1>
+<!-- views/clients/create.ejs -->
+<!DOCTYPE html>
+<html lang="fr">
 
-<form action="/clients" method="POST">
-  <label>Nom:</label>
-  <input type="text" name="nom" required><br>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= title %>
+    </title>
 
-  <label>Prénom:</label>
-  <input type="text" name="prenom" required><br>
 
-  <label>Email:</label>
-  <input type="email" name="email" required><br>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
 
-  <button type="submit">Ajouter</button>
-</form>
+    <!-- CSS CUSTOM (IMPORTANT) -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/clients/client.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name" >Hôtel California</h1>
+                </a>
+            </div>
+            <div>
+                <a href="/clients" class="hotel-title-link">
+                    <p class="hotel-tagline">Création du client</p>
+                </a>
+            </div>
+            <% if (errors && errors.length> 0) { %>
+                <div class="ui negative message">
+                    <div class="header">Erreur lors de la création</div>
+                    <ul class="list">
+                        <% errors.forEach(error=> { %>
+                            <li>
+                                <%= error.msg %>
+                            </li>
+                            <% }) %>
+                    </ul>
+                </div>
+            <% } %>
+
+            <div class="table-wrapper">
+                <form class="clients-table" action="/clients/<%= client.id %>?_method=POST" method="POST">
+                    <input type="hidden" name="id" value="<%= client.id %>">
+                    <div class="two fields">
+                      <div class="required field">
+                            <label>Nom</label>
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="nom" 
+                                    placeholder="Ex: Roumanet" 
+                                    value="<%= client.nom %>" 
+                                    required>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label>Prénom</label>
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="prenom" 
+                                    placeholder="Ex: Davide" 
+                                    value="<%= client.prenom %>" 
+                                    required>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label>Adresse Email</label>
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="email" 
+                                    placeholder="Ex: david.roumanet@free.fr" 
+                                    value="<%= client.email %>" 
+                                    required>
+                            </div>
+                        </div>
+                        <div class="required field">
+                            <label>Telephone</label>
+                            <div class="ui left icon input">
+                                <i class="hashtag icon"></i>
+                                <input 
+                                    type="text" 
+                                    name="telephone" 
+                                    placeholder="Ex: 07 24 25 26 70" 
+                                    value="<%= client.telephone %>" 
+                                    >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui divider"></div>
+                    <div class="field" style="text-align: right;">
+                        <a href="/clients" class="ui button">
+                            <i class="cancel icon"></i> Annuler
+                        </a>
+                        <button class="ui primary button" type="submit">
+                            <i class="save icon"></i> Ajouter le client
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <div class="ui container">
+            <div style="text-align: center; padding: 20px 0;">
+                <p>© 2025 Hôtel California. Tous droits réservés.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
+</body>
+
+</html>

@@ -1,15 +1,73 @@
-<h1><%= title %></h1>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<ul>
-  <% clients.forEach(client => { %>
-    <li>
-      <%= client.nom %> <%= client.prenom %> - <%= client.email %>
-      | <a href="/clients/<%= client.id %>/edit">Modifier</a>
-      | <form action="/clients/<%= client.id %>/delete" method="POST" style="display:inline;">
-          <button type="submit">Supprimer</button>
-        </form>
-    </li>
-  <% }) %>
-</ul>
+    <title>Chambres Hôtel California</title>
 
-<a href="/clients/create">Ajouter un client</a>
+    <!-- Semantic UI -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+
+    <!-- CSS CUSTOM (IMPORTANT) -->
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/clients/client.css">
+</head>
+
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+            
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name" >Hôtel California</h1></div>
+                </a>
+            <p class="hotel-tagline">Gestion des clients</p>
+            <div class="table-wrapper">    
+                <table class="clients-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prenom</th>
+                            <th>Adresse Email</th>
+                            <th>Telephone</th>
+                            <th colspan="2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% clients.forEach(client => { %>
+                            <tr>
+                                <td><%= client.nom %></td>
+                                <td><%= client.prenom %></td>
+                                <td><%= client.email %></td>
+                                <td><%= client.telephone %></td>
+                                <td>
+                                    <a href="/clients/edit/<%= client.id %>" class="btn-action btn-edit">
+                                        Modifier
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="/clients/delete/<%= client.id %>" class="btn-action btn-delete">
+                                        Supprimer
+                                    </a>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div> 
+            <div class="action-buttons" style="margin-top: 2rem;">
+                <a href="/clients/create" class="action-card">
+                    <i class="blue plus circle big icon"></i>
+                    <h3>Ajouter un client</h3>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
