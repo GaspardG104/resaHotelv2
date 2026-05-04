@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="/stylenuit.css">
+    <link rel="stylesheet" href="/chambres/chambre.css">
+</head>
+<body>
+    <div class="stars"></div>
+    <div class="moon"></div>
+    <div class="hero-section">
+        <div class="palm-left">🌴</div>
+        <div class="palm-right">🌴</div>
+        <div class="hero-content">
+            <div>
+                <a href="/" class="hotel-title-link">
+                    <h1 class="hotel-name">Hôtel California</h1>
+                </a>
+            </div>
+            <p class="hotel-tagline">Service Nettoyage - Grand Ménage à effectuer</p>
+
+            <div class="table-wrapper">
+                <% if (reservations.length === 0) { %>
+                    <p style="color: white; text-align: center; padding: 20px;">
+                        Aucun grand ménage à effectuer aujourd'hui.
+                    </p>
+                <% } else { %>
+                    <table class="chambres-table">
+                        <thead>
+                            <tr>
+                                <th>N° Chambre</th>
+                                <th>Capacité</th>
+                                <th>Client</th>
+                                <th>Arrivée</th>
+                                <th>Départ</th>
+                                <th>Supplément</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% reservations.forEach(r => { %>
+                                <tr>
+                                    <td><%= r.chambre_numero %></td>
+                                    <td><%= r.chambre_capacite %> pers.</td>
+                                    <td><%= r.client_nom %></td>
+                                    <td><%= new Date(r.date_arrivee).toLocaleDateString('fr-FR') %></td>
+                                    <td><%= new Date(r.date_depart).toLocaleDateString('fr-FR') %></td>
+                                    <td><%= r.supplement %> €</td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

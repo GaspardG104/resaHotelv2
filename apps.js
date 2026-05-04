@@ -70,5 +70,7 @@ app.use('/clients', clientRoutes);
 
 // ⚠️ Import au milieu du code (devrait être en haut avec les autres)
 import reservationRoutes from './routes/reservations.js';
+import nettoyageRoutes from './routes/nettoyage.js';
 
 app.use('/reservations', reservationRoutes);
+app.use('/nettoyage', nettoyageRoutes);

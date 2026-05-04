@@ -14,6 +14,8 @@ class Reservation {
         this.chambre_id = data.chambre_id;   // CLÉ ÉTRANGÈRE → chambres.id
         this.date_arrivee = data.date_arrivee;
         this.date_depart = data.date_depart;
+        this.grand_menage = data.grand_menage;
+        this.supplement = data.supplement;
         // Champs joints depuis clients/chambres (via INNER JOIN)
         this.client_nom = data.client_nom;
         this.chambre_numero = data.chambre_numero;
@@ -31,6 +33,8 @@ class Reservation {
                     r.chambre_id,
                     r.date_arrivee,
                     r.date_depart,
+                    r.grand_menage,
+                    r.supplement,
                     c.nom AS client_nom,
                     ch.numero AS chambre_numero,
                     ch.capacite AS chambre_capacite
@@ -55,6 +59,8 @@ class Reservation {
                     r.chambre_id,
                     r.date_arrivee,
                     r.date_depart,
+                    r.grand_menage,
+                    r.supplement,
                     c.nom AS client_nom,
                     ch.numero AS chambre_numero,
                     ch.capacite AS chambre_capacite
@@ -113,9 +119,9 @@ class Reservation {
             }
 
             const [result] = await pool.query(
-                `INSERT INTO reservations (client_id, chambre_id, date_arrivee, date_depart)
-                 VALUES (?, ?, ?, ?)`,
-                [data.client_id, data.chambre_id, data.date_arrivee, data.date_depart]
+                `INSERT INTO reservations (client_id, chambre_id, date_arrivee, date_depart, grand_menage, supplement)
+                 VALUES (?, ?, ?, ?, ?, ?)`,
+                [data.client_id, data.chambre_id, data.date_arrivee, data.date_depart, data.grand_menage, data.supplement]
             );
             return result.insertId;
         } catch (error) {
@@ -138,9 +144,9 @@ class Reservation {
 
             const [result] = await pool.query(
                 `UPDATE reservations
-                 SET client_id = ?, chambre_id = ?, date_arrivee = ?, date_depart = ?
+                 SET client_id = ?, chambre_id = ?, date_arrivee = ?, date_depart = ?, grand_menage = ?, supplement = ?
                  WHERE id = ?`,
-                [data.client_id, data.chambre_id, data.date_arrivee, data.date_depart, id]
+                [data.client_id, data.chambre_id, data.date_arrivee, data.date_depart, data.grand_menage, data.supplement, id]
             );
             return result.affectedRows > 0;
         } catch (error) {
@@ -167,6 +173,36 @@ class Reservation {
             return rows[0].total;
         } catch (error) {
             throw new Error(`Erreur lors du comptage des réservations: ${error.message}`);
+        }
+    }
+
+    // Récupère les réservations EN COURS aujourd'hui qui ont demandé le grand ménage
+    // CURDATE() = date du jour côté MySQL
+    // BETWEEN = inclus entre date_arrivee et date_depart
+    static async findGrandMenageEnCours() {
+        try {
+            const [rows] = await pool.query(`
+                SELECT
+                    r.id,
+                    r.client_id,
+                    r.chambre_id,
+                    r.date_arrivee,
+                    r.date_depart,
+                    r.grand_menage,
+                    r.supplement,
+                    c.nom AS client_nom,
+                    ch.numero AS chambre_numero,
+                    ch.capacite AS chambre_capacite
+                FROM reservations r
+                INNER JOIN clients c   ON r.client_id  = c.id
+                INNER JOIN chambres ch ON r.chambre_id = ch.id
+                WHERE r.grand_menage = TRUE
+                  AND CURDATE() BETWEEN r.date_arrivee AND r.date_depart
+                ORDER BY ch.numero ASC
+            `);
+            return rows.map(row => new Reservation(row));
+        } catch (error) {
+            throw new Error(`Erreur lors de la récupération des chambres à nettoyer: ${error.message}`);
         }
     }
 }

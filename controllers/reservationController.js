@@ -107,7 +107,9 @@ class ReservationController {
                 client_id: parseInt(req.body.client_id),
                 chambre_id: parseInt(req.body.chambre_id),
                 date_arrivee: req.body.date_arrivee,
-                date_depart: req.body.date_depart
+                date_depart: req.body.date_depart,
+                grand_menage: req.body.grand_menage === 'on' ? 1 : 0,
+                supplement: req.body.grand_menage === 'on' ? parseFloat(req.body.supplement) || 0 : 0
             });
             res.redirect('/reservations');
         } catch (error) {
@@ -177,7 +179,9 @@ class ReservationController {
                 client_id: parseInt(req.body.client_id),
                 chambre_id: parseInt(req.body.chambre_id),
                 date_arrivee: req.body.date_arrivee,
-                date_depart: req.body.date_depart
+                date_depart: req.body.date_depart,
+                grand_menage: req.body.grand_menage === 'on' ? 1 : 0,
+                supplement: req.body.grand_menage === 'on' ? parseFloat(req.body.supplement) || 0 : 0
             });
             res.redirect('/reservations');
         } catch (error) {

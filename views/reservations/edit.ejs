@@ -88,6 +88,24 @@
                         </div>
                     </div>
 
+                    <div class="two fields">
+                        <div class="field">
+                            <div class="ui checkbox" style="margin-top: 30px;">
+                                <input type="checkbox" name="grand_menage" id="gm_edit" value="on"
+                                    <%= reservation.grand_menage ? 'checked' : '' %>>
+                                <label for="gm_edit">Grand ménage (draps + serviettes)</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>Supplément (€)</label>
+                            <div class="ui left icon input">
+                                <i class="euro icon"></i>
+                                <input type="number" name="supplement" min="0" step="0.01"
+                                    value="<%= reservation.supplement || '' %>" placeholder="Ex: 30.00">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="ui divider"></div>
                     <div class="field" style="text-align: right;">
                         <a href="/reservations">
