@@ -1,61 +1,74 @@
-//index.js ce machin permet de lancer l'app en nodemon
+// ============================================================
+// POINT D'ENTRÉE DE L'APPLICATION
+// Architecture : MVC (Model / View / Controller)
+// Stack : Node.js + Express + EJS + MySQL
+// ============================================================
+
+// --- IMPORTS ---
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Import des routeurs (un par entité = on découpe pour la lisibilité)
 import chambreRoutes from './routes/chambres.js';
 import clientRoutes from './routes/clients.js';
 
+// Création de l'app Express (= mon site web)
 const app = express();
-// Routes
 
 const PORT = process.env.PORT || 3000;
-// Récupérer le chemin local (file://...) et le répertoire courant (workspace/resaHotelCalifornia2)
+
+// Reconstruction de __dirname (nécessaire car on est en ESM, pas en CommonJS)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Configuration EJS
+// --- CONFIGURATION EJS ---
+// EJS = moteur de templates : du HTML avec des "trous" (<%= %>) remplis par mon code
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// Dossier public pour les fichiers statiques (CSS, JS, images)
+// --- MIDDLEWARES ---
+// Middleware = code qui s'exécute entre la requête et la réponse
+
+// Sert les fichiers statiques (CSS, images) du dossier public
 app.use(express.static('public'));
 
-// Middleware (ajout de la route /public, gestion JSON et URLencoded)
+// ⚠️ Doublon de la ligne du dessus (à nettoyer)
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Lit le CORPS des formulaires HTML → remplit req.body (objet JavaScript)
 app.use(express.urlencoded({ extended: true }));
+
+// Lit les données JSON entrantes
 app.use(express.json());
 
-// Configuration du middleware avec exclusion
+// Rend le CSS de Semantic UI accessible via /semantic-ui
 app.use('/semantic-ui', express.static(
     path.join(__dirname, 'node_modules', 'semantic-ui-css'),
     { fallthrough: true }
 ));
 
-// Route principale
+// --- ROUTE PRINCIPALE ---
+// Page d'accueil : affiche la vue accueil/accueil.ejs
 app.get('/', (req, res) => {
     res.render('accueil/accueil', {
         title: 'Hôtel California - Système de Gestion'
     });
 });
 
-// Gestion des erreurs 404
-// app.use((req, res) => {
-//     res.status(404).render('error', {
-//         title: 'Page non trouvée',
-//         error: 'La page demandée n\'existe pas.'
-//     });
-// });
+// (Gestion 404 commentée - non active)
 
+// ⚠️ Anti-pattern : app.listen devrait être à la FIN du fichier
 app.listen(PORT, () => {
     console.log(`Serveur démarré sur http://localhost:${PORT}`);
 });
 
+// --- ENREGISTREMENT DES ROUTEURS ---
+// Toute URL commençant par /chambres est aiguillée vers chambreRoutes
 app.use('/chambres', chambreRoutes);
 app.use('/clients', clientRoutes);
 
-// En haut avec les autres imports :
+// ⚠️ Import au milieu du code (devrait être en haut avec les autres)
 import reservationRoutes from './routes/reservations.js';
 
-// En bas avec les autres routes :
 app.use('/reservations', reservationRoutes);

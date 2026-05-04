@@ -1,28 +1,33 @@
-// routes/chambres.js
+// ============================================================
+// ROUTES CHAMBRES - aiguille les URL /chambres/* vers le controller
+// → Que GET et POST (les formulaires HTML ne supportent pas PUT/DELETE)
+// → :id = paramètre dynamique (récupéré via req.params.id)
+// ============================================================
+
 import express from 'express';
 import ChambreController from '../controllers/chambreController.js';
 
-const router = express.Router();
+const router = express.Router(); // mini-Express dédié aux chambres
 
-// Afficher la liste des chambres
+// GET /chambres → liste
 router.get('/', ChambreController.index);
 
-// Afficher le formulaire de création d'une chambre
+// GET /chambres/create → formulaire vide
 router.get('/create', ChambreController.create);
 
-// Traiter la création d'une chambre
+// POST /chambres → traitement de la création
 router.post('/', ChambreController.store);
 
-// Afficher le formulaire d'édition d'une chambre
+// GET /chambres/edit/:id → formulaire pré-rempli
 router.get('/edit/:id', ChambreController.edit);
 
-// Traiter la mise à jour d'une chambre
+// POST /chambres/:id → traitement de la modification
 router.post('/:id', ChambreController.update);
 
-// Afficher la confirmation de suppression d'une chambre
+// GET /chambres/delete/:id → page de confirmation
 router.get('/delete/:id', ChambreController.delete);
 
-// Traiter la suppression d'une chambre
+// POST /chambres/delete/:id → suppression réelle
 router.post('/delete/:id', ChambreController.destroy);
 
 export default router;

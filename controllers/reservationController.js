@@ -1,9 +1,15 @@
-// controllers/reservationController.js
+// ============================================================
+// CONTROLLER RESERVATION - le plus complexe (gère dates + relations)
+// → Importe 3 models : Reservation, Client, Chambre (pour les <select>)
+// → Utilise Promise.all pour charger clients + chambres EN PARALLÈLE
+// → Validation factorisée dans une fonction validate() (principe DRY)
+// ============================================================
+
 import Reservation from '../models/reservation.js';
 import Client from '../models/client.js';
 import Chambre from '../models/chambre.js';
 
-// Formate une date (Date | string) en YYYY-MM-DD pour les <input type="date">
+// Formate une date pour les <input type="date"> (qui attend YYYY-MM-DD)
 function toInputDate(value) {
     if (!value) return '';
     const d = new Date(value);
@@ -14,7 +20,8 @@ function toInputDate(value) {
     return `${year}-${month}-${day}`;
 }
 
-// Validation commune des données du formulaire
+// VALIDATION factorisée (DRY = Don't Repeat Yourself)
+// → Utilisée dans store ET update : un seul endroit à modifier en cas de changement
 function validate(body) {
     const errors = [];
 
@@ -38,7 +45,7 @@ function validate(body) {
 }
 
 class ReservationController {
-    // Liste des réservations
+    // GET /reservations → LISTE des réservations
     static async index(req, res) {
         try {
             const reservations = await Reservation.findAll();
@@ -53,7 +60,9 @@ class ReservationController {
         }
     }
 
-    // Formulaire de création
+    // GET /reservations/create → FORMULAIRE VIDE
+    // On a besoin de la liste des clients + chambres pour les <select>
+    // Promise.all = exécute les 2 requêtes EN PARALLÈLE (plus rapide qu'en séquentiel)
     static async create(req, res) {
         try {
             const [clients, chambres] = await Promise.all([
@@ -74,9 +83,9 @@ class ReservationController {
         }
     }
 
-    // Traitement de la création
+    // POST /reservations → CRÉER en BDD
     static async store(req, res) {
-        const errors = validate(req.body);
+        const errors = validate(req.body); // appel de la fonction factorisée
 
         if (errors.length > 0) {
             const [clients, chambres] = await Promise.all([

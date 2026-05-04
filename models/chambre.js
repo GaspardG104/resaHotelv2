@@ -1,14 +1,20 @@
-// models/chambre.js
+// ============================================================
+// MODEL CHAMBRE - parle à la base de données pour les chambres
+// Toutes les requêtes utilisent des "?" = REQUÊTES PRÉPARÉES
+// → Protection contre l'INJECTION SQL
+// ============================================================
+
 import pool from './connexion.js';
 
 class Chambre {
+    // Constructeur : transforme une ligne brute de la BDD en objet Chambre
     constructor(data) {
         this.id = data.id;
         this.numero = data.numero;
         this.capacite = data.capacite;
     }
 
-    // Récupérer toutes les chambres
+    // READ - Récupérer TOUTES les chambres (SELECT *)
     static async findAll() {
         try {
             const [rows] = await pool.query(
@@ -20,11 +26,12 @@ class Chambre {
         }
     }
 
-    // Récupérer une chambre par son ID
+    // READ - Récupérer UNE chambre par son id
+    // Renvoie null si non trouvée
     static async findById(id) {
         try {
             const [rows] = await pool.query(
-                'SELECT * FROM chambres WHERE id = ?',
+                'SELECT * FROM chambres WHERE id = ?', // ? = requête préparée
                 [id]
             );
             return rows.length > 0 ? new Chambre(rows[0]) : null;
@@ -33,10 +40,10 @@ class Chambre {
         }
     }
 
-    // Créer une nouvelle chambre
+    // CREATE - Créer une nouvelle chambre (INSERT)
     static async create(data) {
         try {
-            // Vérifier si le numéro existe déjà
+            // Vérification métier : le numéro doit être unique
             const [existing] = await pool.query(
                 'SELECT id FROM chambres WHERE numero = ?',
                 [data.numero]
@@ -51,16 +58,16 @@ class Chambre {
                 [data.numero, data.capacite]
             );
 
-            return result.insertId;
+            return result.insertId; // id auto-généré par MySQL
         } catch (error) {
             throw new Error(`Erreur lors de la création de la chambre: ${error.message}`);
         }
     }
 
-    // Mettre à jour une chambre
+    // UPDATE - Modifier une chambre existante
     static async update(id, data) {
         try {
-            // Vérifier si le numéro existe déjà pour une autre chambre
+            // Vérification : aucune AUTRE chambre n'utilise ce numéro
             const [existing] = await pool.query(
                 'SELECT id FROM chambres WHERE numero = ? AND id != ?',
                 [data.numero, id]
@@ -81,10 +88,11 @@ class Chambre {
         }
     }
 
-    // Supprimer une chambre
+    // DELETE - Supprimer une chambre
+    // → Sécurité : on BLOQUE si la chambre a des réservations
+    //   (différent du ON DELETE CASCADE qui supprimerait en chaîne)
     static async delete(id) {
         try {
-            // Vérifier s'il existe des réservations pour cette chambre
             const [reservations] = await pool.query(
                 'SELECT COUNT(*) as count FROM reservations WHERE chambre_id = ?',
                 [id]
@@ -105,7 +113,7 @@ class Chambre {
         }
     }
 
-    // Récupérer le nombre total de chambres
+    // Compteur total de chambres
     static async count() {
         try {
             const [rows] = await pool.query('SELECT COUNT(*) as total FROM chambres');
@@ -114,7 +122,9 @@ class Chambre {
             throw new Error(`Erreur lors du comptage des chambres: ${error.message}`);
         }
     }
-    // Vérifier la disponibilité d'une chambre
+
+    // ⚠️ MÉTHODE NON UTILISÉE et BUGUÉE (db n'est pas défini, c'est pool)
+    // → La vraie logique de disponibilité est dans models/reservation.js
     static async isAvailable(chambreId, dateArrivee, dateDepart) {
         try {
             const [rows] = await db.execute(`

@@ -1,9 +1,16 @@
+-- ============================================================
+-- SCHÉMA DE LA BASE DE DONNÉES
+-- 4 tables : clients, chambres, reservations, employes
+-- 2 clés étrangères dans reservations (vers clients + chambres)
+-- ============================================================
+
 -- Suppression et création de la base
 DROP DATABASE IF EXISTS sql7800709;
 CREATE DATABASE sql7800709;
 USE sql7800709;
 
--- Table clients
+-- TABLE CLIENTS
+-- PRIMARY KEY = identifiant unique auto-incrémenté
 CREATE TABLE clients (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(100) NOT NULL,
@@ -12,14 +19,17 @@ CREATE TABLE clients (
     nombre_personnes INT NOT NULL
 ) ENGINE=InnoDB;
 
--- Table chambres
+-- TABLE CHAMBRES
+-- numero est UNIQUE (deux chambres ne peuvent pas avoir le même numéro)
 CREATE TABLE chambres (
     id INT AUTO_INCREMENT PRIMARY KEY,
     numero VARCHAR(10) NOT NULL UNIQUE,
     capacite INT NOT NULL
 ) ENGINE=InnoDB;
 
--- Table réservations
+-- TABLE RESERVATIONS - fait le LIEN entre clients et chambres
+-- client_id et chambre_id = CLÉS ÉTRANGÈRES (FOREIGN KEY)
+-- ON DELETE CASCADE = si on supprime un client/chambre, ses réservations sont supprimées automatiquement
 CREATE TABLE reservations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     client_id INT NOT NULL,
@@ -32,7 +42,8 @@ CREATE TABLE reservations (
 
 
 
--- Table employés
+-- TABLE EMPLOYES - prévue pour l'authentification (NON IMPLÉMENTÉE dans le code Node)
+-- ⚠️ Mots de passe en SHA2 = sécurité faible (pas de salt) → bcrypt serait mieux
 CREATE TABLE employes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,

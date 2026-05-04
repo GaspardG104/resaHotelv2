@@ -14,20 +14,28 @@
     <link rel="stylesheet" href="/chambres/chambre.css">
 </head>
 
+<!--
+    VUE EJS - Liste des chambres
+    Reçoit la variable "chambres" depuis ChambreController.index
+    SYNTAXES EJS utilisées :
+      <% %>  = logique JS (boucles, if) sans rien afficher
+      <%= %> = affichage ÉCHAPPÉ (sécurisé contre XSS)
+      <%- %> = affichage brut (DANGEREUX, non utilisé ici)
+-->
 <body>
     <div class="stars"></div>
     <div class="moon"></div>
     <div class="hero-section">
         <div class="palm-left">🌴</div>
         <div class="palm-right">🌴</div>
-            
+
         <div class="hero-content">
             <div>
                 <a href="/" class="hotel-title-link">
                     <h1 class="hotel-name" >Hôtel California</h1></div>
                 </a>
             <p class="hotel-tagline">Gestion des chambres</p>
-            <div class="table-wrapper">    
+            <div class="table-wrapper">
                 <table class="chambres-table">
                     <thead>
                         <tr>
@@ -37,11 +45,13 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <%# Boucle JS : pour chaque chambre, on génère une ligne <tr> %>
                         <% chambres.forEach(chambre => { %>
                             <tr>
                                 <td><%= chambre.numero %></td>
                                 <td><%= chambre.capacite %> personnes</td>
                                 <td>
+                                    <%# URL dynamique avec l'id de la chambre %>
                                     <a href="/chambres/edit/<%= chambre.id %>" class="btn-action btn-edit">
                                         Modifier
                                     </a>
@@ -55,7 +65,7 @@
                         <% }) %>
                     </tbody>
                 </table>
-            </div> 
+            </div>
             <div class="action-buttons" style="margin-top: 2rem;">
                 <a href="/chambres/create" class="action-card">
                     <i class="blue plus circle big icon"></i>

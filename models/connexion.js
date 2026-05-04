@@ -1,16 +1,21 @@
-// /models/connexion.js
-// Imports needed for DB connexion
-import mysql from 'mysql2/promise';
-import fs from 'fs'; // FS : FileSystem (lire les fichiers du disque)
-import ini from 'ini'; // INI : Lire le contenu des fichiers au format .ini
-import path from 'path'; // PATH: Détermine les chemins (working dir)
-import { fileURLToPath } from 'url'; // URL: Convertit les liens en chemin
+// ============================================================
+// CONNEXION À LA BASE DE DONNÉES MYSQL
+// Utilise un POOL de connexions (10 portes réutilisables)
+// ============================================================
 
-// Récupérer le chemin local (file://...) et le répertoire courant (workspace/resaHotelCalifornia2)
+import mysql from 'mysql2/promise'; // Driver MySQL avec support des promesses (await)
+import fs from 'fs';                 // Pour lire le fichier de config
+import ini from 'ini';               // Pour parser le format .ini
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Reconstruction de __dirname (ESM)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Lecture des paramètres depuis un fichier configDB.ini (à exclure dans .gitignore)
+// Lecture des identifiants depuis db.ini
+// → Pourquoi un fichier séparé ? Pour ne pas mettre le mot de passe dans le code
+// → Le fichier est dans .gitignore (pas envoyé sur GitHub)
 const config = ini.parse(fs.readFileSync(path.join(__dirname, '../config/db.ini'), 'utf-8'));
 const dbConfig = {
     host: config.host,
@@ -20,7 +25,9 @@ const dbConfig = {
     charset: config.charset
 };
 
-// Pool de connexions pour optimiser les performances
+// POOL = réservoir de 10 connexions MySQL réutilisées
+// → Ouvrir/fermer une connexion à chaque requête serait trop lent
+// → Si 11 requêtes en même temps : la 11ème attend qu'une porte se libère
 const pool = mysql.createPool({
     ...dbConfig,
     waitForConnections: true,
@@ -28,5 +35,4 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// Exporte le module pool
 export default pool;

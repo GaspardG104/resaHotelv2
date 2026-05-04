@@ -1,4 +1,13 @@
-import db from './connexion.js';
+// ============================================================
+// MODEL CLIENT - parle à la BDD pour les clients
+// → Utilise les MÉTHODES D'INSTANCE (client.update) pour update/delete
+//   (différent de Chambre qui utilise des méthodes statiques)
+// ⚠️ INCOHÉRENCE : ce model utilise prenom/email
+//   mais la table SQL contient nom/email/telephone/nombre_personnes
+//   (champs prenom inexistant en BDD, telephone/nombre_personnes ignorés)
+// ============================================================
+
+import db from './connexion.js'; // db = le pool (juste un nom différent)
 
 class Client {
     constructor(data) {
@@ -8,7 +17,7 @@ class Client {
         this.email = data.email;
     }
 
-    // Récupérer tous les clients
+    // READ - tous les clients
     static async findAll() {
         try {
             const [rows] = await db.execute('SELECT * FROM clients ORDER BY nom');
@@ -18,7 +27,7 @@ class Client {
         }
     }
 
-    // Récupérer un client par ID
+    // READ - un client par id (renvoie null si non trouvé)
     static async findById(id) {
         try {
             const [rows] = await db.execute('SELECT * FROM clients WHERE id = ?', [id]);
@@ -28,7 +37,7 @@ class Client {
         }
     }
 
-    // Créer un client
+    // CREATE - INSERT en BDD
     static async create(clientData) {
         try {
             const [result] = await db.execute(
@@ -41,7 +50,7 @@ class Client {
         }
     }
 
-    // Modifier un client
+    // UPDATE - méthode d'instance (s'appelle sur un objet client)
     async update(clientData) {
         try {
             await db.execute(
@@ -56,7 +65,9 @@ class Client {
         }
     }
 
-    // Supprimer un client
+    // DELETE - méthode d'instance
+    // ⚠️ Pas de vérification : si le client a des réservations,
+    //    elles sont supprimées automatiquement par le ON DELETE CASCADE
     async delete() {
         try {
             await db.execute('DELETE FROM clients WHERE id = ?', [this.id]);

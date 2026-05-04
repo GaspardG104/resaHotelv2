@@ -1,20 +1,27 @@
-// models/reservation.js
+// ============================================================
+// MODEL RESERVATION - parle à la BDD pour les réservations
+// → C'est ici que se trouve la logique de DISPONIBILITÉ (isAvailable)
+// → Les requêtes utilisent des INNER JOIN pour récupérer
+//   le nom du client et le numéro de la chambre en même temps
+// ============================================================
+
 import pool from './connexion.js';
 
 class Reservation {
     constructor(data) {
         this.id = data.id;
-        this.client_id = data.client_id;
-        this.chambre_id = data.chambre_id;
+        this.client_id = data.client_id;     // CLÉ ÉTRANGÈRE → clients.id
+        this.chambre_id = data.chambre_id;   // CLÉ ÉTRANGÈRE → chambres.id
         this.date_arrivee = data.date_arrivee;
         this.date_depart = data.date_depart;
-        // Champs joints (peuvent être undefined si pas de JOIN)
+        // Champs joints depuis clients/chambres (via INNER JOIN)
         this.client_nom = data.client_nom;
         this.chambre_numero = data.chambre_numero;
         this.chambre_capacite = data.chambre_capacite;
     }
 
-    // Récupérer toutes les réservations avec infos client et chambre
+    // READ - toutes les réservations
+    // INNER JOIN pour récupérer en une seule requête : nom du client + numéro de chambre
     static async findAll() {
         try {
             const [rows] = await pool.query(`
@@ -38,7 +45,7 @@ class Reservation {
         }
     }
 
-    // Récupérer une réservation par son ID
+    // READ - une réservation par id (avec ses infos client/chambre)
     static async findById(id) {
         try {
             const [rows] = await pool.query(`
@@ -62,8 +69,12 @@ class Reservation {
         }
     }
 
-    // Vérifier la disponibilité d'une chambre sur une période
-    // (excludeId permet d'ignorer la réservation en cours d'édition)
+    // CHEVAUCHEMENT DE PÉRIODES
+    // Détecte s'il y a déjà une réservation qui chevauche la période demandée
+    //   date_arrivee_existante < dateDepart_nouvelle  (a commencé avant que la nouvelle parte)
+    //   AND date_depart_existante > dateArrivee_nouvelle  (finit après que la nouvelle arrive)
+    // → Si compteur de conflits = 0, la chambre est libre
+    // excludeId : pour ignorer la réservation en cours d'édition
     static async isAvailable(chambreId, dateArrivee, dateDepart, excludeId = null) {
         try {
             let sql = `
@@ -87,7 +98,9 @@ class Reservation {
         }
     }
 
-    // Créer une nouvelle réservation
+    // CREATE - vérifie la dispo, puis INSERT
+    // ⚠️ RACE CONDITION possible entre isAvailable et INSERT
+    //    (correctif : transaction SQL ou contrainte UNIQUE composite)
     static async create(data) {
         try {
             const dispo = await Reservation.isAvailable(
@@ -110,14 +123,14 @@ class Reservation {
         }
     }
 
-    // Mettre à jour une réservation
+    // UPDATE - même logique que create mais avec excludeId pour s'ignorer soi-même
     static async update(id, data) {
         try {
             const dispo = await Reservation.isAvailable(
                 data.chambre_id,
                 data.date_arrivee,
                 data.date_depart,
-                id
+                id // exclure cette réservation pour qu'elle ne soit pas en conflit avec elle-même
             );
             if (!dispo) {
                 throw new Error('Cette chambre est déjà réservée sur la période sélectionnée');
@@ -135,7 +148,7 @@ class Reservation {
         }
     }
 
-    // Supprimer une réservation
+    // DELETE - simple suppression
     static async delete(id) {
         try {
             const [result] = await pool.query(
@@ -148,7 +161,6 @@ class Reservation {
         }
     }
 
-    // Compter le nombre total de réservations
     static async count() {
         try {
             const [rows] = await pool.query('SELECT COUNT(*) AS total FROM reservations');
